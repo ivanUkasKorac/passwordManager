@@ -7,10 +7,10 @@ Both are used in the command line and will be explained bellow.
 
 Usermgmt:
   1. adding a new user (start the program and add two arguments: "add" and the name of the user):
-    - $ ./usermgmt add user1 
-    - Password: 
-    - Repeat Password: 
-    - User add successfuly added. (This will be displayed differently if its a password missmatch, weak password or user exists)
+     - $ ./usermgmt add user1 
+     - Password: 
+     - Repeat Password: 
+     - User add successfuly added. (This will be displayed differently if its a password missmatch, weak password or user exists)
   2. changing a password of a user that already exists (start the program and add two arguments: "passwd" and the name of the user):
     - $ ./usermgmt passwd user1 
     - Password: 
