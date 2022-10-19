@@ -98,7 +98,7 @@ public class usermgmt {
 			e.printStackTrace();
 		}
 		// initializing variables
-		//Scanner sc = new Scanner(System.in);
+		// Scanner sc = new Scanner(System.in);
 		List<String> help = Files.readAllLines(data.toPath());
 		Map<String, String> map = new HashMap<>();
 		Map<String, String> map2 = new HashMap<>();
@@ -123,114 +123,121 @@ public class usermgmt {
 		// making variables unreadable from memory
 		help = null;
 		help2 = null;
+		if (args[1].length() <= 256) {
+			if (args[0].equals("add") && args.length == 2) {
+				if (!map.containsKey(args[1])) {
+					Console console = System.console();
 
-		if (args[0].equals("add") && args.length == 2) {
-			if (!map.containsKey(args[1])) {
-				Console console = System.console();
+					char passwd[] = console.readPassword("Password: ");
 
-				char passwd[] = console.readPassword("Password: ");
+					char passwdRep[] = console.readPassword("Repeat password: ");
 
-				char passwdRep[] = console.readPassword("Repeat password: ");
+					String password = new String(passwd);
+					String password2 = new String(passwdRep);
 
-				String password = new String(passwd);
-				String password2 = new String(passwdRep);
-
-				if (password.equals(password2)) {
-					if (cntUpperCaseCharacters(password) >= 1 && cntNumbers(password) >= 1 && password.length() >= 10) {
-						String result[] = passwordHashing(password).split(":");
-						Files.writeString(data.toPath(), args[1] + ":" + result[1] + ":" + "0" + ":" + result[0] + ":"
-								+ sdf1.format(timestamp).toString() + "\n", StandardOpenOption.APPEND);
-						result = null;
-						System.out.println("User add successfuly added.");
-					} else {
-						System.out.println(
-								"User add failed. Password too weak, must contain at least 10 characters, one upper letter and one number.");
-					}
-				} else {
-					System.out.println("User add failed. Password mismatch.");
-				}
-				password = null;
-				password2 = null;
-				passwd = null;
-				passwdRep = null;
-			} else {
-				System.out.println("User add failed. User already exists.");
-			}
-
-		} else if (args[0].equals("passwd") && args.length == 2) {
-			if (map.containsKey(args[1])) {
-				Console console = System.console();
-
-				char passwd[] = console.readPassword("Password: ");
-
-				char passwdRep[] = console.readPassword("Repeat password: ");
-
-				String password = new String(passwd);
-				String password2 = new String(passwdRep);
-
-				if (password.equals(password2)) {
-					if (cntUpperCaseCharacters(password) >= 1 && cntNumbers(password) >= 1 && password.length() >= 10) {
-						String result[] = passwordHashing(password).split(":");
-						map.put(args[1], result[1]);
-						map3.put(args[1], result[0]);
-						map4.put(args[1], timestamp);
-						String a = "";
-						for (Map.Entry<String, String> entry : map.entrySet()) {
-							a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
-									+ map3.get(entry.getKey()) + ":" + sdf1.format(map4.get(entry.getKey())).toString()
-									+ "\n";
+					if (password.equals(password2)) {
+						if (cntUpperCaseCharacters(password) >= 1 && cntNumbers(password) >= 1
+								&& password.length() >= 10 && password.length() <= 256) {
+							String result[] = passwordHashing(password).split(":");
+							Files.writeString(data.toPath(), args[1] + ":" + result[1] + ":" + "0" + ":" + result[0]
+									+ ":" + sdf1.format(timestamp).toString() + "\n", StandardOpenOption.APPEND);
+							result = null;
+							System.out.println("User add successfuly added.");
+						} else {
+							System.out.println(
+									"User add failed. Password too weak, must contain at least 10 and not more than 256 characters, one upper letter and one number.");
 						}
-						Files.writeString(data.toPath(), a);
-						result = null;
-						a = null;
-						System.out.println("Password change successful.");
 					} else {
-						System.out.println(
-								"Password change failed. Password too weak, must contain at least 10 characters, one upper letter and one number.");
+						System.out.println("User add failed. Password mismatch.");
 					}
+					password = null;
+					password2 = null;
+					passwd = null;
+					passwdRep = null;
 				} else {
-					System.out.println("Password change failed. Password mismatch.");
+					System.out.println("User add failed. User already exists.");
 				}
-				password = null;
-				password2 = null;
-				passwd = null;
-				passwdRep = null;
-			} else {
-				System.out.println("This user doesn't exist.");
-			}
 
-		} else if (args[0].equals("forcepass") && args.length == 2) {
-			if (map.containsKey(args[1])) {
-				map2.put(args[1], "1");
-				String a = "";
-				for (Map.Entry<String, String> entry : map.entrySet()) {
-					a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
-							+ map3.get(entry.getKey()) + ":" + sdf1.format(map4.get(entry.getKey())).toString() + "\n";
+			} else if (args[0].equals("passwd") && args.length == 2) {
+				if (map.containsKey(args[1])) {
+					Console console = System.console();
+
+					char passwd[] = console.readPassword("Password: ");
+
+					char passwdRep[] = console.readPassword("Repeat password: ");
+
+					String password = new String(passwd);
+					String password2 = new String(passwdRep);
+
+					if (password.equals(password2)) {
+						if (cntUpperCaseCharacters(password) >= 1 && cntNumbers(password) >= 1
+								&& password.length() >= 10 && password.length() <= 256) {
+							String result[] = passwordHashing(password).split(":");
+							map.put(args[1], result[1]);
+							map3.put(args[1], result[0]);
+							map4.put(args[1], timestamp);
+							String a = "";
+							for (Map.Entry<String, String> entry : map.entrySet()) {
+								a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
+										+ map3.get(entry.getKey()) + ":"
+										+ sdf1.format(map4.get(entry.getKey())).toString() + "\n";
+							}
+							Files.writeString(data.toPath(), a);
+							result = null;
+							a = null;
+							System.out.println("Password change successful.");
+						} else {
+							System.out.println(
+									"Password change failed. Password too weak, must contain at least 10 and not more than 256 characters, one upper letter and one number.");
+						}
+					} else {
+						System.out.println("Password change failed. Password mismatch.");
+					}
+					password = null;
+					password2 = null;
+					passwd = null;
+					passwdRep = null;
+				} else {
+					System.out.println("This user doesn't exist.");
 				}
-				Files.writeString(data.toPath(), a);
-				a = null;
 
-				System.out.println("User will be requested to change password on next login.");
-			} else {
-				System.out.println("This user doesn't exist.");
-			}
-		} else if (args[0].equals("del")) {
-			if (map.containsKey(args[1])) {
-				map.remove(args[1]);
-				String a = "";
-				for (Map.Entry<String, String> entry : map.entrySet()) {
-					a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
-							+ map3.get(entry.getKey()) + ":" + sdf1.format(map4.get(entry.getKey())).toString() + "\n";
+			} else if (args[0].equals("forcepass") && args.length == 2) {
+				if (map.containsKey(args[1])) {
+					map2.put(args[1], "1");
+					String a = "";
+					for (Map.Entry<String, String> entry : map.entrySet()) {
+						a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
+								+ map3.get(entry.getKey()) + ":" + sdf1.format(map4.get(entry.getKey())).toString()
+								+ "\n";
+					}
+					Files.writeString(data.toPath(), a);
+					a = null;
+
+					System.out.println("User will be requested to change password on next login.");
+				} else {
+					System.out.println("This user doesn't exist.");
 				}
-				Files.writeString(data.toPath(), a);
-				a = null;
+			} else if (args[0].equals("del")) {
+				if (map.containsKey(args[1])) {
+					map.remove(args[1]);
+					String a = "";
+					for (Map.Entry<String, String> entry : map.entrySet()) {
+						a = a + entry.getKey() + ":" + entry.getValue() + ":" + map2.get(entry.getKey()) + ":"
+								+ map3.get(entry.getKey()) + ":" + sdf1.format(map4.get(entry.getKey())).toString()
+								+ "\n";
+					}
+					Files.writeString(data.toPath(), a);
+					a = null;
 
-				System.out.println("User successfuly removed.");
+					System.out.println("User successfuly removed.");
+				} else {
+					System.out.println("This user doesn't exist.");
+				}
 			} else {
-				System.out.println("This user doesn't exist.");
+				System.out.println("Wrong number of arguments.");
 			}
 		} else {
-			System.out.println("Wrong number of arguments.");
+			System.out.println("Username too big, limit of 256 characters");
 		}
 		map = null;
 		map2 = null;

@@ -150,7 +150,7 @@ public class login {
 						sc.close();
 						if (newPassword.equals(newPassword2) && !newPassword.equals(password)) {
 							if (cntUpperCaseCharacters(newPassword) >= 1 && cntNumbers(newPassword) >= 1
-									&& newPassword.length() >= 10) {
+									&& newPassword.length() >= 10 && password.length() <= 256) {
 								String newSalt = hexString(getSalt());
 								result = passwordHashing(newPassword, newSalt);
 								map.put(args[0], result);
@@ -169,7 +169,7 @@ public class login {
 								a = null;
 							} else {
 								System.out.println(
-										"Password change failed. Password too weak, must contain at least 10 characters, one upper letter and one number.");
+										"Password change failed. Password too weak, must contain at least 10 and not more than 256 characters, one upper letter and one number.");
 							}
 						} else {
 							System.out.println("Password mismatch or old password used.");
