@@ -40,7 +40,6 @@ Both the username and password can only be 256 characters long, and are only ASC
 Even if an unwanted person got to the file with the passwords it should be safe because of the implementation of the following features.
     
 Safety features:
-
 	1. Safe storage:
 		-a random value (salt) is added to each password, which is passed through the cryptographic digest function
 		-salt and the result of the cryptographic function are stored in the file
