@@ -37,24 +37,24 @@ Login:
     
 Both the username and password can only be 256 characters long, and are only ASCII characters (codes from 33 to 126 inclusive).
 
-Even if an unwanted person got to the file with the passwords it should be safe because of the implementation of the following features.
-    
+Even if an unwanted person got to the file with the passwords it should be safe because of the implementation of the following.
+
 Safety features:
-	1. Safe storage:
-		-a random value (salt) is added to each password, which is passed through the cryptographic digest function
-		-salt and the result of the cryptographic function are stored in the file
-		-the function used by the program is PBKDF2WithHmacSHA1, which protects passwords from "brute force", "rainbow tables" attacks and is resistant to collisions
-		-the algorithm increases its intensity with iterations, which makes it more secure than some others (e.g. MD5)
-		-the program now works based on comparing the results of cryptographic functions, which makes it difficult for attackers to do their job
-	2. Preventing guessing:
-		-password complexity of at least 10 characters and at least one number and uppercase letter is specified
-		-after changing the password, changing to the current (old) password is prohibited
-	3. Periodic change:
-		-the administrator can request a password change
-		-after a certain time, the system itself asks for a password change (currently set to 30 days) which ensures more frequent password changes
-	4. Theft:
-		-Disabled recording of password when logging in or changing password
-    
-    
+  1. Safe storage:
+    -a random value (salt) is added to each password, which is passed through the cryptographic digest function
+    -salt and the result of the cryptographic function are stored in the file
+    -the function used by the program is PBKDF2WithHmacSHA1, which protects passwords from "brute force", "rainbow tables" attacks and is resistant to collisions
+    -the algorithm increases its intensity with iterations, which makes it more secure than some others (e.g. MD5)
+    -the program now works based on comparing the results of cryptographic functions, which makes it difficult for attackers to do their job
+  2. Preventing guessing:
+    -password complexity of at least 10 characters and at least one number and uppercase letter is specified
+    -after changing the password, changing to the current (old) password is prohibited
+  3. Periodic change:
+    -the administrator can request a password change
+    -after a certain time, the system itself asks for a password change (currently set to 30 days) which ensures more frequent password changes
+  4. Theft:
+    -disabled recording of password when logging in or changing password
+
+	
     
     
